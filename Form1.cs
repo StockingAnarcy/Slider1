@@ -14,6 +14,7 @@ namespace Slider1
     {
         public Form1()
         {
+            this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
         }
         private int ImageNumber = 1;
