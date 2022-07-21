@@ -1,3 +1,5 @@
-﻿asd:10
-aswga:20jisljflkfIJfSIDLGH vm
-test:test
+﻿Мак:1
+Кола:1
+Крылья:1
+Сок:1
+Салфетки:1

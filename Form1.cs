@@ -13,12 +13,11 @@ namespace Slider1
 {
     public partial class Form1 : Form
     {
-        string imagePath = @"./Images/";
-        string filePath = @"./";
-        string fileName = "demo.txt";
+        string imagePath = @"./Images/";                    //путь папки с картиночками
+        string filePath = @"./";                            //путь папки с exe
+        string fileName = "demo.txt";                       //имя файла для чтения
 
         List<string> lines = new List<string>();
-        List<Label> labels = new List<Label>();
         
 
         public Form1()
@@ -29,17 +28,18 @@ namespace Slider1
             watcher.EnableRaisingEvents = true;
             watcher.SynchronizingObject = this;
             watcher.NotifyFilter = NotifyFilters.LastWrite| NotifyFilters.FileName;
-            //watcher.NotifyFilter = NotifyFilters.FileName;
+
             watcher.Changed += OnChanged;
             watcher.Created += OnCreated;
             watcher.Deleted += OnDeleted;
+
             watcher.Filter = fileName;
             
             InitializeComponent();
             CheckFile();
         }
         private int ImageNumber = 1;
-        private void LoadNextImages()
+        private void LoadNextImages()                       //грузим фотки по таймеру
         {
             timer1.Start();
             ImageNumber++;
@@ -50,55 +50,44 @@ namespace Slider1
             pictureBox1.ImageLocation = string.Format(imagePath + ImageNumber+".jpg");
         }
 
-       /* private void LoadPreviousImages()
+        private void CheckFile()                            //проверка файла
         {
-            timer1.Start();
-            ImageNumber--;
-            if (ImageNumber > 1)
-            {
-                ImageNumber = 5;
-            }
-            pictureBox1.ImageLocation = string.Format(imagePath + ImageNumber + ".jpg");
-        }*/
-
-        public void CheckFile()
-        {
-            //labels = this.Controls.OfType<Label>().ToList();
-            if (File.Exists(filePath + @"\" + fileName)) //если файл сущесвует
-            {
-                label1.Visible = true;
-                label2.Visible = true;
-                groupBox1.Visible = true;
+            
+            if (File.Exists(filePath + @"\" + fileName))    //если файл сущесвует
+            {                    
+                groupBox1.Visible = true;                   //показываем инфу
                 ReadFile();              
             }
-            else    //если файл отсутствует
+            else                                            //если файл отсутствует
             {
-                lines.Clear();
+                lines.Clear();                              //чистим строки и текст
                 label1.Text = "";
 
-                label1.Visible = false;
-                label2.Visible = false;
-                groupBox1.Visible = false;
+                groupBox1.Visible = false;                  //скрываем инфу
             }
         }
 
-        private void ReadFile()
+        private void ReadFile()                             //чтение файла
         {
             label1.Text = "";
-            labels = this.Controls.OfType<Label>().ToList();
-            string[] line = File.ReadAllLines(fileName);
-            int count = File.ReadAllLines(fileName).Length;
+            string[] line = File.ReadAllLines(fileName);    //читаем строки
+            int count = File.ReadAllLines(fileName).Length; //кол-во строк
 
-            foreach (string s in line)
+            int[] sum = new int[count];                     //сумма
+
+            foreach (string s in line)                      //строки в список
             {
                 lines.Add(s);
             }
 
-            for (int i=0; i < count; i++) //вывод в текст
-            {   
-                label1.Text += lines[i].Substring(lines[i].IndexOf(':') + 1)+"\n";
+            for (int i=0; i < count; i++)                   //вывод в текст
+            {
+                label1.Text += lines[i].Substring(0, lines[i].IndexOf(':'))
+                + " " + lines[i].Substring(lines[i].IndexOf(':') + 1) + "\n\n";
+                sum[i] = int.Parse(lines[i].Substring(lines[i].IndexOf(':') + 1));
+                
             }
-            
+            label1.Text += String.Format("{0,70}", "Итого: " + sum.Sum().ToString());            //сумма            //String.Format("{0,10}", sum.Sum().ToString()); справа????
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)
@@ -107,10 +96,9 @@ namespace Slider1
             {
               return;
             }
-            
             lines.Clear();
             ReadFile();
-        }
+        }       //проверка изменения
 
         private void OnCreated(object sender, FileSystemEventArgs e)
         {
@@ -118,18 +106,17 @@ namespace Slider1
             {
                 return;
             }
-            ReadFile();
-        }
+            CheckFile();
+        }       //проверка создания
 
-        private void OnDeleted(object sender, FileSystemEventArgs e)
+        private void OnDeleted(object sender, FileSystemEventArgs e)          //проверка удаления
         {
             if (e.ChangeType != WatcherChangeTypes.Deleted)
             {
                 return;
             }
-            lines.Clear();
             CheckFile();
-        }
+        } 
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -145,9 +132,5 @@ namespace Slider1
 
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
