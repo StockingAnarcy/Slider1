@@ -22,19 +22,19 @@ namespace Slider1
 
         public Form1()
         {
-            this.WindowState = FormWindowState.Maximized;
+            this.WindowState = FormWindowState.Maximized;           //Окно на весь экран
            
-            var watcher = new FileSystemWatcher(filePath);
-            watcher.EnableRaisingEvents = true;
-            watcher.SynchronizingObject = this;
-            watcher.NotifyFilter = NotifyFilters.LastWrite| NotifyFilters.FileName;
+            var watcher = new FileSystemWatcher(filePath);          //путь файлвотчера
+            watcher.EnableRaisingEvents = true;                     //ивенты файлвотчера
+            watcher.SynchronizingObject = this;                     //синхронизация с обьектом
+            watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName; //фильтры оповещений
 
-            watcher.Changed += OnChanged;
-            watcher.Created += OnCreated;
-            watcher.Deleted += OnDeleted;
+            watcher.Changed += OnChanged;                   //проверки на действия
+            watcher.Created += OnCreated;                   
+            watcher.Deleted += OnDeleted;                   
 
-            watcher.Filter = fileName;
-            
+            watcher.Filter = fileName;                      //фильтр имени
+
             InitializeComponent();
             CheckFile();
         }
@@ -90,7 +90,7 @@ namespace Slider1
             label1.Text += String.Format("{0,70}", "Итого: " + sum.Sum().ToString());            //сумма            //String.Format("{0,10}", sum.Sum().ToString()); справа????
         }
 
-        private void OnChanged(object sender, FileSystemEventArgs e)
+        private void OnChanged(object sender, FileSystemEventArgs e)           //проверка изменения  
         {
             if (e.ChangeType != WatcherChangeTypes.Changed)
             {
@@ -98,16 +98,16 @@ namespace Slider1
             }
             lines.Clear();
             ReadFile();
-        }       //проверка изменения
+        }      
 
-        private void OnCreated(object sender, FileSystemEventArgs e)
+        private void OnCreated(object sender, FileSystemEventArgs e)          //проверка создания
         {
             if (e.ChangeType != WatcherChangeTypes.Created)
             {
                 return;
             }
             CheckFile();
-        }       //проверка создания
+        }      
 
         private void OnDeleted(object sender, FileSystemEventArgs e)          //проверка удаления
         {
