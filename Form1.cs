@@ -28,8 +28,8 @@ namespace Slider1
             var watcher = new FileSystemWatcher(filePath);
             watcher.EnableRaisingEvents = true;
             watcher.SynchronizingObject = this;
-            watcher.NotifyFilter = NotifyFilters.LastWrite;
-            watcher.NotifyFilter = NotifyFilters.FileName;
+            watcher.NotifyFilter = NotifyFilters.LastWrite| NotifyFilters.FileName;
+            //watcher.NotifyFilter = NotifyFilters.FileName;
             watcher.Changed += OnChanged;
             watcher.Created += OnCreated;
             watcher.Deleted += OnDeleted;
@@ -63,9 +63,12 @@ namespace Slider1
 
         public void CheckFile()
         {
-            labels = this.Controls.OfType<Label>().ToList();
+            //labels = this.Controls.OfType<Label>().ToList();
             if (File.Exists(filePath + @"\" + fileName)) //если файл сущесвует
             {
+                label1.Visible = true;
+                label2.Visible = true;
+                groupBox1.Visible = true;
                 ReadFile();              
             }
             else    //если файл отсутствует

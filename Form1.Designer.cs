@@ -79,13 +79,14 @@ namespace Slider1
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.AutoSize = true;
             this.groupBox1.BackColor = System.Drawing.Color.White;
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(222, 56);
+            this.groupBox1.Location = new System.Drawing.Point(1065, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(320, 321);
+            this.groupBox1.Size = new System.Drawing.Size(320, 790);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
