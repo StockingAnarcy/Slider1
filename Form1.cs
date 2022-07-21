@@ -29,10 +29,14 @@ namespace Slider1
             watcher.EnableRaisingEvents = true;
             watcher.SynchronizingObject = this;
             watcher.NotifyFilter = NotifyFilters.LastWrite;
+            watcher.NotifyFilter = NotifyFilters.FileName;
             watcher.Changed += OnChanged;
-            watcher.Filter = "demo.txt";
+            watcher.Created += OnCreated;
+            watcher.Deleted += OnDeleted;
+            watcher.Filter = fileName;
             
             InitializeComponent();
+            CheckFile();
         }
         private int ImageNumber = 1;
         private void LoadNextImages()
@@ -59,8 +63,7 @@ namespace Slider1
 
         public void CheckFile()
         {
-            timer2.Start();
-
+            labels = this.Controls.OfType<Label>().ToList();
             if (File.Exists(filePath + @"\" + fileName)) //если файл сущесвует
             {
                 ReadFile();              
@@ -68,28 +71,29 @@ namespace Slider1
             else    //если файл отсутствует
             {
                 lines.Clear();
-                for(int i = 0; i < labels.Count; i++) 
-                {
-                    labels[i].Text = "";
-                }
+                label1.Text = "";
+
+                label1.Visible = false;
+                label2.Visible = false;
+                groupBox1.Visible = false;
             }
         }
 
         private void ReadFile()
         {
+            label1.Text = "";
             labels = this.Controls.OfType<Label>().ToList();
             string[] line = File.ReadAllLines(fileName);
+            int count = File.ReadAllLines(fileName).Length;
 
             foreach (string s in line)
             {
                 lines.Add(s);
             }
 
-            for (int i = 0; i < lines.Count; i++) //вывод в текст
-            {
-                label1.Text += i;// lines[i];//.Substring(lines[i].IndexOf(':') + 1)+"\n";
-                if (i == lines.Count) return;
-                //labels[i].Text = lines[i].Substring(lines[i].IndexOf(':') + 1);
+            for (int i=0; i < count; i++) //вывод в текст
+            {   
+                label1.Text += lines[i].Substring(lines[i].IndexOf(':') + 1)+"\n";
             }
             
         }
@@ -104,14 +108,29 @@ namespace Slider1
             lines.Clear();
             ReadFile();
         }
+
+        private void OnCreated(object sender, FileSystemEventArgs e)
+        {
+            if (e.ChangeType != WatcherChangeTypes.Created)
+            {
+                return;
+            }
+            ReadFile();
+        }
+
+        private void OnDeleted(object sender, FileSystemEventArgs e)
+        {
+            if (e.ChangeType != WatcherChangeTypes.Deleted)
+            {
+                return;
+            }
+            lines.Clear();
+            CheckFile();
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             LoadNextImages();
-        }
-
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            CheckFile();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
