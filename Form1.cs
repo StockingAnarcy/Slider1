@@ -23,15 +23,14 @@ namespace Slider1
 
         public Form1()
         {
-            
-            
-
             this.WindowState = FormWindowState.Maximized;
            
             var watcher = new FileSystemWatcher(filePath);
+            watcher.EnableRaisingEvents = true;
+            watcher.SynchronizingObject = this;
             watcher.NotifyFilter = NotifyFilters.LastWrite;
             watcher.Changed += OnChanged;
-            watcher.Filter = "*.txt";
+            watcher.Filter = "demo.txt";
             
             InitializeComponent();
         }
@@ -61,55 +60,39 @@ namespace Slider1
         public void CheckFile()
         {
             timer2.Start();
+
             if (File.Exists(filePath + @"\" + fileName)) //если файл сущесвует
             {
-                //string ln;
-                labels = this.Controls.OfType<Label>().ToList();
-                StreamReader sr = new StreamReader(fileName);
-                
-                while (sr.Peek() >= 0)
-                {
-                    lines.Add(sr.ReadLine());
-                } 
-                sr.Close(); 
-                    
-                for (int i = 0; i < labels.Count; i++) //вывод в текст
-                {
-                    labels[i].Text = lines[i].Substring(lines[i].IndexOf(':') + 1); 
-                }
-
+                ReadFile();              
             }
             else    //если файл отсутствует
             {
                 lines.Clear();
                 for(int i = 0; i < labels.Count; i++) 
                 {
-
                     labels[i].Text = "";
-
                 }
             }
         }
 
-        //private void ReadFile()
-        //{
-        //    labels = this.Controls.OfType<Label>().ToList();
-        //    StreamReader sr = new StreamReader(fileName);
-        //    while (!sr.EndOfStream) //читаем файл
-        //    {
+        private void ReadFile()
+        {
+            labels = this.Controls.OfType<Label>().ToList();
+            string[] line = File.ReadAllLines(fileName);
 
-        //        lines.Add(sr.ReadLine());
+            foreach (string s in line)
+            {
+                lines.Add(s);
+            }
 
-        //    }
-        //    sr.Close();
-
-        //    for (int i = 0; i < labels.Count; i++) //вывод в текст
-        //    {
-
-        //        labels[i].Text = lines[i].Substring(lines[i].IndexOf(':') + 1);
-
-        //    }
-        //}
+            for (int i = 0; i < lines.Count; i++) //вывод в текст
+            {
+                label1.Text += i;// lines[i];//.Substring(lines[i].IndexOf(':') + 1)+"\n";
+                if (i == lines.Count) return;
+                //labels[i].Text = lines[i].Substring(lines[i].IndexOf(':') + 1);
+            }
+            
+        }
 
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
@@ -117,7 +100,9 @@ namespace Slider1
             {
               return;
             }
-            CheckFile();
+            
+            lines.Clear();
+            ReadFile();
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
