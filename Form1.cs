@@ -90,7 +90,7 @@ namespace Slider1
             }
         }
 
-        private void OnChanged(object sender, FileSystemEventArgs e)           //проверка изменения  
+        private void OnChanged(object sender, FileSystemEventArgs e)           //проверка  изменения  
         {
             if (e.ChangeType != WatcherChangeTypes.Changed)
             {
