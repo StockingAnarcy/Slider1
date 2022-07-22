@@ -135,8 +135,19 @@ namespace Slider1
         }
         private void SetSize()
         {
-            pictureBox1.Width = Screen.AllScreens[1].Bounds.Width;
-            pictureBox1.Height = Screen.AllScreens[1].Bounds.Height;
+            Screen[] screens = Screen.AllScreens;
+            if (screens.Length <= 1)
+            {
+                pictureBox1.Width = Screen.PrimaryScreen.Bounds.Width;
+                pictureBox1.Height = Screen.PrimaryScreen.Bounds.Height;
+            }
+            else
+            {
+                pictureBox1.Width = Screen.AllScreens[1].Bounds.Width;
+                pictureBox1.Height = Screen.AllScreens[1].Bounds.Height;
+            }
+            
+
         }
 
     }

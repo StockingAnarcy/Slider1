@@ -18,9 +18,12 @@ namespace Slider1
             Application.EnableVisualStyles();
             Form1 form = new Form1();
             Screen[] screens = Screen.AllScreens;
-            System.Drawing.Rectangle bounds = screens[1].Bounds;
-            form.SetBounds(bounds.X, bounds.Y, bounds.Width, bounds.Height);
-            form.StartPosition = FormStartPosition.Manual;
+            if (screens.Length != 1)
+            {
+                System.Drawing.Rectangle bounds = screens[1].Bounds;
+                form.SetBounds(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+                form.StartPosition = FormStartPosition.Manual;
+            }
             Application.Run(form);
         }
     }
