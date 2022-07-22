@@ -15,14 +15,14 @@ namespace Slider1
     {
         string imagePath = @"./Images/";                    //путь папки с картиночками
         string filePath = @"./";                            //путь папки с exe
-        string fileName = "demo.txt";                       //имя файла для чтения
+        string[] fileName;                       //имя файла для чтения
 
         List<string> lines = new List<string>();
         
 
         public Form1()
         {
-            
+            //fileName = Directory.GetFiles(filePath, "*.txt");
             this.WindowState = FormWindowState.Maximized;           //Окно на весь экран
            
             var watcher = new FileSystemWatcher(filePath);          //путь файлвотчера
@@ -34,13 +34,15 @@ namespace Slider1
             watcher.Created += OnCreated;                   
             watcher.Deleted += OnDeleted;                   
 
-            watcher.Filter = fileName;                      //фильтр имени
+            watcher.Filter = "*.txt";                      //фильтр имени
 
             InitializeComponent();
             SetSize();
             CheckFile();
         }
+
         private int ImageNumber = 1;
+
         private void LoadNextImages()                       //грузим фотки по таймеру
         {
             timer1.Start();
@@ -54,8 +56,8 @@ namespace Slider1
 
         private void CheckFile()                            //проверка файла
         {
-            
-            if (File.Exists(filePath + @"\" + fileName))    //если файл сущесвует
+            fileName = Directory.GetFiles(filePath, "*.txt").OrderBy(f => new FileInfo(f).CreationTime).ToArray();
+            if (fileName.Length != 0)    //если файл сущесвует
             {                    
                 groupBox1.Visible = true;                   //показываем инфу
                 ReadFile();              
@@ -72,10 +74,8 @@ namespace Slider1
         private void ReadFile()                             //чтение файла
         {
             label1.Text = "";
-            string[] line = File.ReadAllLines(fileName);    //читаем строки
-            int count = File.ReadAllLines(fileName).Length; //кол-во строк
-
-            //int[] sum = new int[count];                     //сумма
+            string[] line = File.ReadAllLines(fileName.Last());    //читаем строки
+            int count = File.ReadAllLines(fileName.Last()).Length; //кол-во строк
 
             foreach (string s in line)                      //строки в список
             {
@@ -86,10 +86,8 @@ namespace Slider1
             {
                 label1.Text += lines[i].Substring(0, lines[i].IndexOf(':'))
                 + " " + lines[i].Substring(lines[i].IndexOf(':') + 1) + "\n\n";
-               // sum[i] = int.Parse(lines[i].Substring(lines[i].IndexOf(':') + 1));
-                
+
             }
-            //label1.Text += String.Format("{0,70}", "Итого: " + sum.Sum().ToString());            //сумма            //String.Format("{0,10}", sum.Sum().ToString()); справа????
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)           //проверка изменения  
@@ -109,7 +107,8 @@ namespace Slider1
                 return;
             }
             CheckFile();
-        }      
+            
+        }
 
         private void OnDeleted(object sender, FileSystemEventArgs e)          //проверка удаления
         {
@@ -117,6 +116,7 @@ namespace Slider1
             {
                 return;
             }
+            fileName = null;
             CheckFile();
         } 
 
