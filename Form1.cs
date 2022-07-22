@@ -22,6 +22,7 @@ namespace Slider1
 
         public Form1()
         {
+            
             this.WindowState = FormWindowState.Maximized;           //Окно на весь экран
            
             var watcher = new FileSystemWatcher(filePath);          //путь файлвотчера
@@ -36,6 +37,7 @@ namespace Slider1
             watcher.Filter = fileName;                      //фильтр имени
 
             InitializeComponent();
+            SetSize();
             CheckFile();
         }
         private int ImageNumber = 1;
@@ -43,7 +45,7 @@ namespace Slider1
         {
             timer1.Start();
             ImageNumber++;
-            if(ImageNumber == 5)
+            if(ImageNumber == 6)
             {
                 ImageNumber = 1;
             }
@@ -73,7 +75,7 @@ namespace Slider1
             string[] line = File.ReadAllLines(fileName);    //читаем строки
             int count = File.ReadAllLines(fileName).Length; //кол-во строк
 
-            int[] sum = new int[count];                     //сумма
+            //int[] sum = new int[count];                     //сумма
 
             foreach (string s in line)                      //строки в список
             {
@@ -84,10 +86,10 @@ namespace Slider1
             {
                 label1.Text += lines[i].Substring(0, lines[i].IndexOf(':'))
                 + " " + lines[i].Substring(lines[i].IndexOf(':') + 1) + "\n\n";
-                sum[i] = int.Parse(lines[i].Substring(lines[i].IndexOf(':') + 1));
+               // sum[i] = int.Parse(lines[i].Substring(lines[i].IndexOf(':') + 1));
                 
             }
-            label1.Text += String.Format("{0,70}", "Итого: " + sum.Sum().ToString());            //сумма            //String.Format("{0,10}", sum.Sum().ToString()); справа????
+            //label1.Text += String.Format("{0,70}", "Итого: " + sum.Sum().ToString());            //сумма            //String.Format("{0,10}", sum.Sum().ToString()); справа????
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)           //проверка изменения  
@@ -125,12 +127,16 @@ namespace Slider1
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+            
         }
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
-
+        private void SetSize()
+        {
+            pictureBox1.Width = Screen.PrimaryScreen.Bounds.Width;
+            pictureBox1.Height = Screen.PrimaryScreen.Bounds.Height;
+        }
     }
 }
