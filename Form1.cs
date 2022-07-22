@@ -43,7 +43,7 @@ namespace Slider1
         {
             timer1.Start();
             ImageNumber++;
-            if(ImageNumber > 5)
+            if(ImageNumber == 5)
             {
                 ImageNumber = 1;
             }
