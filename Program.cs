@@ -14,9 +14,14 @@ namespace Slider1
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.EnableVisualStyles();
+            Form1 form = new Form1();
+            Screen[] screens = Screen.AllScreens;
+            System.Drawing.Rectangle bounds = screens[1].Bounds;
+            form.SetBounds(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+            form.StartPosition = FormStartPosition.Manual;
+            Application.Run(form);
         }
     }
 }

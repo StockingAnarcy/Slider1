@@ -18,24 +18,24 @@ namespace Slider1
         string[] fileName;                       //имя файла для чтения
 
         List<string> lines = new List<string>();
-        
+
 
         public Form1()
         {
             //fileName = Directory.GetFiles(filePath, "*.txt");
             this.WindowState = FormWindowState.Maximized;           //Окно на весь экран
-           
+
             var watcher = new FileSystemWatcher(filePath);          //путь файлвотчера
             watcher.EnableRaisingEvents = true;                     //ивенты файлвотчера
             watcher.SynchronizingObject = this;                     //синхронизация с обьектом
             watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName; //фильтры оповещений
 
             watcher.Changed += OnChanged;                   //проверки на действия
-            watcher.Created += OnCreated;                   
-            watcher.Deleted += OnDeleted;                   
+            watcher.Created += OnCreated;
+            watcher.Deleted += OnDeleted;
 
             watcher.Filter = "*.txt";                      //фильтр имени
-
+            
             InitializeComponent();
             SetSize();
             CheckFile();
@@ -47,20 +47,20 @@ namespace Slider1
         {
             timer1.Start();
             ImageNumber++;
-            if(ImageNumber == 6)
+            if (ImageNumber == 6)
             {
                 ImageNumber = 1;
             }
-            pictureBox1.ImageLocation = string.Format(imagePath + ImageNumber+".jpg");
+            pictureBox1.ImageLocation = string.Format(imagePath + ImageNumber + ".jpg");
         }
 
         private void CheckFile()                            //проверка файла
         {
             fileName = Directory.GetFiles(filePath, "*.txt").OrderBy(f => new FileInfo(f).CreationTime).ToArray();
             if (fileName.Length != 0)    //если файл сущесвует
-            {                    
+            {
                 groupBox1.Visible = true;                   //показываем инфу
-                ReadFile();              
+                ReadFile();
             }
             else                                            //если файл отсутствует
             {
@@ -82,7 +82,7 @@ namespace Slider1
                 lines.Add(s);
             }
 
-            for (int i=0; i < count; i++)                   //вывод в текст
+            for (int i = 0; i < count; i++)                   //вывод в текст
             {
                 label1.Text += lines[i].Substring(0, lines[i].IndexOf(':'))
                 + " " + lines[i].Substring(lines[i].IndexOf(':') + 1) + "\n\n";
@@ -94,11 +94,11 @@ namespace Slider1
         {
             if (e.ChangeType != WatcherChangeTypes.Changed)
             {
-              return;
+                return;
             }
             lines.Clear();
             ReadFile();
-        }      
+        }
 
         private void OnCreated(object sender, FileSystemEventArgs e)          //проверка создания
         {
@@ -107,7 +107,7 @@ namespace Slider1
                 return;
             }
             CheckFile();
-            
+
         }
 
         private void OnDeleted(object sender, FileSystemEventArgs e)          //проверка удаления
@@ -118,7 +118,7 @@ namespace Slider1
             }
             fileName = null;
             CheckFile();
-        } 
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -127,7 +127,7 @@ namespace Slider1
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            
+
         }
         private void label1_Click(object sender, EventArgs e)
         {
@@ -135,8 +135,9 @@ namespace Slider1
         }
         private void SetSize()
         {
-            pictureBox1.Width = Screen.PrimaryScreen.Bounds.Width;
-            pictureBox1.Height = Screen.PrimaryScreen.Bounds.Height;
+            pictureBox1.Width = Screen.AllScreens[1].Bounds.Width;
+            pictureBox1.Height = Screen.AllScreens[1].Bounds.Height;
         }
+
     }
 }
