@@ -16,7 +16,7 @@ namespace Slider1
         string imagePath = @"./Images/";                    //путь папки с картиночками
         string filePath = @"./";                            //путь папки с exe
         string[] fileName;                                  //имя файла для чтения
-        string[] image;                                     //имя картинки для чтения
+        string[] image;                                     //имя  картинки для чтения
 
         List<string> lines = new List<string>();
         
