@@ -13,7 +13,7 @@
 1. Разместить .exe файл в любом удобном для вас месте.
 2. Затем рядом с .exe файлом разместить папку Images, где будут лежать ваши изображения в формате .jpg.
 3. На этом этапе уже можно запустить приложение и оценить его работу. Ведь при появлении .txt файла с данными, оно автоматически будет выводить его на экран.
-4. Создавать/удалять/перезаписывать .txt файл для вывода его на экран.
+4. Создавать/удалять/перезаписывать .txt файл (формат строки <var>текст:текст</var>) для вывода его на экран.
 5. Наслаждаться работой приложения.
 ---
 ## Скачать
@@ -25,7 +25,7 @@
 ## Program features (en)
 This program is designed for local use.
 ### App features:
-- pull up .jpg images (up to 5 pictures) from the Images folder, next to the .exe file
+- load .jpg images from the Images folder, next to the .exe file
 - read and decode .txt files adjacent to the .exe
 - automatic display of uploaded images and their subsequent change (one after another)
 - display data from .txt file (if the file exists), and close the output window if it does not exist
@@ -35,7 +35,7 @@ This program is designed for local use.
 1. Place the .exe file in any convenient location.
 2. Next to the .exe file, place the Images folder where your images in .jpg format will be located.
 3. At this stage you can already run the application and evaluate its work. After all, when a .txt file with data appears, it will automatically display it on the screen.
-4. Create/delete/rewrite .txt file to display it on the screen.
+4. Create/delete/rewrite .txt file (string format <var>text:text</var>) to display it on the screen.
 5. Enjoy the work of the application.
 
 ---
