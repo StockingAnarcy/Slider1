@@ -17,9 +17,9 @@
 5. Наслаждаться работой приложения.
 ---
 ## Скачать
-Источник Mega: [Slider1.exe]()
+Источник Mega: [Slider1.exe](https://mega.nz/file/hBxQTQZQ#iy6c_i-DACzgv5TVrxTsq77eptvZlJdPAZOimpk2zSI)
 
-Источник Google Drive: [Slider1.exe]()
+Источник Google Drive: [Slider1.exe](https://drive.google.com/file/d/1ht3JRFjS6Kcv3m0vDZeF-g8TZaNPzaUU/view?usp=sharing)
 
 ---
 ## Program features (en)
@@ -40,9 +40,9 @@ This program is designed for local use.
 
 ---
 ## Download
-Mega: [Slider1.exe]()
+Mega: [Slider1.exe](https://mega.nz/file/hBxQTQZQ#iy6c_i-DACzgv5TVrxTsq77eptvZlJdPAZOimpk2zSI)
 
-Google Drive: [Slider1.exe]()
+Google Drive: [Slider1.exe](https://drive.google.com/file/d/1ht3JRFjS6Kcv3m0vDZeF-g8TZaNPzaUU/view?usp=sharing)
 
 ---
 
