@@ -15,14 +15,15 @@ namespace Slider1
     {
         string imagePath = @"./Images/";                    //путь папки с картиночками
         string filePath = @"./";                            //путь папки с exe
-        string[] fileName;                       //имя файла для чтения
+        string[] fileName;                                  //имя файла для чтения
+        string[] image;                                     //имя картинки для чтения
 
         List<string> lines = new List<string>();
-
+        
 
         public Form1()
         {
-            //fileName = Directory.GetFiles(filePath, "*.txt");
+            
             this.WindowState = FormWindowState.Maximized;           //Окно на весь экран
 
             var watcher = new FileSystemWatcher(filePath);          //путь файлвотчера
@@ -45,13 +46,18 @@ namespace Slider1
 
         private void LoadNextImages()                       //грузим фотки по таймеру
         {
+            image = Directory.GetFiles(imagePath, "*.jpg");
+
             timer1.Start();
             ImageNumber++;
-            if (ImageNumber == 6)
+            if (ImageNumber == image.Length)
             {
                 ImageNumber = 1;
             }
-            pictureBox1.ImageLocation = string.Format(imagePath + ImageNumber + ".jpg");
+            for (int i = 0; i <= ImageNumber; i++)
+            {
+                pictureBox1.ImageLocation = image[i];
+            }
         }
 
         private void CheckFile()                            //проверка файла
