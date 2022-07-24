@@ -79,7 +79,7 @@ namespace Slider1
 
         private void ReadFile()                             //чтение файла
         {
-            label1.Text = "";
+            label1.Text = null;
             string[] line = File.ReadAllLines(fileName.Last());    //читаем строки
             int count = File.ReadAllLines(fileName.Last()).Length; //кол-во строк
 
@@ -90,8 +90,8 @@ namespace Slider1
 
             for (int i = 0; i < count; i++)                   //вывод в текст
             {
-                label1.Text += lines[i].Substring(0, lines[i].IndexOf(':'))
-                + " " + lines[i].Substring(lines[i].IndexOf(':') + 1) + "\n\n";
+                label1.Text += lines[i] + "\n\n";//.Substring(0, lines[i].IndexOf(':'))
+                //+ " " + lines[i].Substring(lines[i].IndexOf(':') + 1) + "\n\n";
 
             }
         }
