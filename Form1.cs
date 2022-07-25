@@ -156,5 +156,10 @@ namespace Slider1
 
         }
 
+        private void настройкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fontDialog1.ShowDialog();
+            label1.Font = fontDialog1.Font;
+        }
     }
 }
