@@ -36,12 +36,9 @@ namespace Slider1
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.шрифтToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.настройкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -89,51 +86,26 @@ namespace Slider1
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
-            // menuStrip1
+            // contextMenuStrip1
             // 
-            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.шрифтToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1366, 24);
-            this.menuStrip1.TabIndex = 8;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // шрифтToolStripMenuItem
-            // 
-            this.шрифтToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.настройкаToolStripMenuItem});
-            this.шрифтToolStripMenuItem.Name = "шрифтToolStripMenuItem";
-            this.шрифтToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
-            this.шрифтToolStripMenuItem.Text = "Шрифт";
-            // 
-            // настройкаToolStripMenuItem
-            // 
-            this.настройкаToolStripMenuItem.Name = "настройкаToolStripMenuItem";
-            this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.настройкаToolStripMenuItem.Text = "Настройка";
-            this.настройкаToolStripMenuItem.Click += new System.EventHandler(this.настройкаToolStripMenuItem_Click);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 26);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1366, 768);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -145,9 +117,7 @@ namespace Slider1
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.FontDialog fontDialog1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem шрифтToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem настройкаToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
 

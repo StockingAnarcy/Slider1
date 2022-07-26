@@ -36,10 +36,25 @@ namespace Slider1
             watcher.Deleted += OnDeleted;
 
             watcher.Filter = "*.txt";                      //фильтр имени
-            
+
             InitializeComponent();
             SetSize();
             CheckFile();
+
+            //элементы меню
+            ToolStripMenuItem changeText = new ToolStripMenuItem("Настройка шрифтов");
+            ToolStripMenuItem quitItem = new ToolStripMenuItem("Выход");
+
+            //добавление элементов в меню
+            contextMenuStrip1.Items.AddRange(new[] { changeText, quitItem });
+
+            //ассоциируем контекстное меню с текстовым полем
+            pictureBox1.ContextMenuStrip = contextMenuStrip1;
+            groupBox1.ContextMenuStrip = contextMenuStrip1;
+
+            //устанавливаем обработчики событий для меню
+            changeText.Click += changeText_Click;
+            quitItem.Click += quitItem_Click;
         }
 
         private int ImageNumber = 1;
@@ -131,14 +146,6 @@ namespace Slider1
             LoadNextImages();
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
         private void SetSize()
         {
             Screen[] screens = Screen.AllScreens;
@@ -156,10 +163,17 @@ namespace Slider1
 
         }
 
-        private void настройкаToolStripMenuItem_Click(object sender, EventArgs e)
+        //вызов меню смены текста
+        private void changeText_Click(object sender, EventArgs e)
         {
             fontDialog1.ShowDialog();
             label1.Font = fontDialog1.Font;
+        }
+
+        //выход из приложения(пожилого)
+        private void quitItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
