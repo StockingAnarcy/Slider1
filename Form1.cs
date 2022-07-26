@@ -103,29 +103,30 @@ namespace Slider1
                 lines.Add(s);
             }
 
-            //lines[1] = new string('-', 5 + 70 + 15 + 16 + 16);
-            //lines[count-4] = new string('-', 5 + 70 + 15 + 16 + 16);
+            lines[1] = new string('-', 3 + 74 + 15 + 15 + 15);
+            lines[count - 4] = new string('-', 3 + 74 + 15 + 15 + 15);
 
             for (int i = 0; i < count; i++)                   //вывод в текст
             {
-                label1.Text += lines[i] + "\n\n";
 
-                //string[] split = lines[i].Split('|');
-                //label1.Text += lines[i] + "\n";
+                string[] split;
+                if (i == 1 || i == count - 4)
+                {
+                    label1.Text += lines[i] + "\n";
+                }
 
-                //if (i == 1 || i >= count - 4)
-                //{
-                //   label1.Text += lines[i] + "\n";
-               // }
-               // if (i > count - 4)
-                //{
-
-                 //   label1.Text += string.Format("{0,-105}|{1,-16}", split[0], split[1]) + "\n";
-               // }
-               // else
-                //{
-                //    label1.Text += string.Format("{0,5}|{1,-70}|{2,-15}|{3,-16}|{4,-16}|", split[0], split[1], split[2], split[3], split[4]) + "\n";
-               // }
+                if (i != 1 && i != count - 4)
+                {
+                    split = lines[i].Split('|');
+                    if (i > count - 4)
+                    {
+                        label1.Text += string.Format("{0,-110}|{1,-15}", split[0], split[1]) + "\n";
+                    }
+                    if (i != 1 && i < count - 4)
+                    {
+                        label1.Text += string.Format("{0,3}|{1,74}|{2,15}|{3,15}|{4,15}|", split[0], split[1], split[2], split[3], split[4]) + "\n";
+                    }
+                }
 
             }
         }
@@ -186,8 +187,6 @@ namespace Slider1
                 pictureBox1.Width = Screen.AllScreens[1].Bounds.Width;
                 pictureBox1.Height = Screen.AllScreens[1].Bounds.Height;
             }
-
-
         }
 
         private void настройкаToolStripMenuItem_Click(object sender, EventArgs e)
@@ -213,9 +212,7 @@ namespace Slider1
                 MyIni.Write("font", fontDialog1.Font.FontFamily.Name);
                 MyIni.Write("fontSize", fontDialog1.Font.Size.ToString());
             }
-
         }
-
         private void LoadParams()
         {
             if (MyIni.KeyExists("fontSize"))
@@ -225,20 +222,12 @@ namespace Slider1
                 label1.Font = new Font(MyIni.Read("font"), x);
             }
             else
-                label1.Font = new Font("Arial", 10);
+                label1.Font = new Font("Consolas", 12);
         }
         //выход из приложения(пожилого)
         private void quitItem_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void label1_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (MousePosition.Y <= menuStrip1.Height && !menuStrip1.Visible)
-                menuStrip1.Visible = true;
-            if (MousePosition.Y > menuStrip1.Height && menuStrip1.Visible)
-                menuStrip1.Visible = false;
         }
     }
  
