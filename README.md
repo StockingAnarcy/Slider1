@@ -1,6 +1,6 @@
 # Slider
 ## Основные возможности программы (ru)
-Данная программа расчитана на локальное использование.
+Данная программа рассчитана на локальное использование.
 ### Особенности приложения:
 - подтягивать .jpg картинки из папки Images, рядом с .exe файлом
 - считывать и распознавать .txt файл находящийся рядом с .exe 
@@ -13,8 +13,9 @@
 1. Разместить .exe файл в любом удобном для вас месте.
 2. Затем рядом с .exe файлом разместить папку Images, где будут лежать ваши изображения в формате .jpg.
 3. На этом этапе уже можно запустить приложение и оценить его работу. Ведь при появлении .txt файла с данными, оно автоматически будет выводить его на экран.
-4. Создавать/удалять/перезаписывать .txt файл для вывода его на экран.
-5. Наслаждаться работой приложения.
+4. Можно выбрать размер шрифта или его стиль с помощью контекстного меню(пкм по любой области на экране), либо навести курсор на верхнюю часть экрана и в меню "Шрифт" выбрать нужные вам настройки.
+5. Создавать/удалять/перезаписывать .txt файл для вывода его на экран.
+6. Наслаждаться работой приложения.
 ---
 ## Скачать
 Источник Mega: [Slider](https://mega.nz/file/NMZTHJCT#Qxkoag8miYe9V6kDA1m3Eo2czfy3-0bubOnb3M482Tc)
@@ -35,8 +36,9 @@ This program is designed for local use.
 1. Place the .exe file in any convenient location.
 2. Next to the .exe file, place the Images folder where your images in .jpg format will be located.
 3. At this stage you can already run the application and evaluate its work. After all, when a .txt file with data appears, it will automatically display it on the screen.
-4. Create/delete/rewrite .txt file (string format <var>text:text</var>) to display it on the screen.
-5. Enjoy the work of the application.
+4. You can choose a font size or style by using the context menu (click on any area of the screen), or you can hover over the top of the screen and choose your desired setting from the "Font" menu.
+5. Create/delete/rewrite .txt file (string format <var>text:text</var>) to display it on the screen.
+6. Enjoy the work of the application.
 
 ---
 ## Download
