@@ -111,21 +111,21 @@ namespace Slider1
                 label1.Text += lines[i] + "\n\n";
 
                 //string[] split = lines[i].Split('|');
-                ////label1.Text += lines[i] + "\n";
+                //label1.Text += lines[i] + "\n";
 
                 //if (i == 1 || i >= count - 4)
                 //{
-                //    label1.Text += lines[i] + "\n";
-                //}
-                //if (i > count - 4)
+                //   label1.Text += lines[i] + "\n";
+               // }
+               // if (i > count - 4)
                 //{
 
-                //    label1.Text += string.Format("{0,-105}|{1,-16}", split[0], split[1]) + "\n";
-                //}
-                //else
+                 //   label1.Text += string.Format("{0,-105}|{1,-16}", split[0], split[1]) + "\n";
+               // }
+               // else
                 //{
                 //    label1.Text += string.Format("{0,5}|{1,-70}|{2,-15}|{3,-16}|{4,-16}|", split[0], split[1], split[2], split[3], split[4]) + "\n";
-                //}
+               // }
 
             }
         }
@@ -208,7 +208,7 @@ namespace Slider1
         {
             fontDialog1.ShowDialog();
             label1.Font = fontDialog1.Font;
-            if (fontDialog1.ShowDialog() != DialogResult.Cancel)
+            if (DialogResult != DialogResult.Cancel)
             {
                 MyIni.Write("font", fontDialog1.Font.FontFamily.Name);
                 MyIni.Write("fontSize", fontDialog1.Font.Size.ToString());
@@ -220,7 +220,7 @@ namespace Slider1
         {
             if (MyIni.KeyExists("fontSize"))
             {
-                int x = int.Parse(MyIni.Read("fontSize"));
+                float x = float.Parse(MyIni.Read("fontSize"));
 
                 label1.Font = new Font(MyIni.Read("font"), x);
             }
@@ -233,6 +233,13 @@ namespace Slider1
             this.Close();
         }
 
+        private void label1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (MousePosition.Y <= menuStrip1.Height && !menuStrip1.Visible)
+                menuStrip1.Visible = true;
+            if (MousePosition.Y > menuStrip1.Height && menuStrip1.Visible)
+                menuStrip1.Visible = false;
+        }
     }
  
 }
