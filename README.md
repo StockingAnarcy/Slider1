@@ -18,9 +18,9 @@
 6. Наслаждаться работой приложения.
 ---
 ## Скачать
-Источник Mega: [Slider](https://mega.nz/file/1QQjVSTQ#hgPg8ORwkoIvTIM-Wbg36v41D8RksKsBdr_htnFhlTc)
+Источник Mega: [Slider](https://mega.nz/file/0dAwFaoQ#K8KedDxh3td0dtL5wYUtjCQl1UC47PTDoGqTPZtY3q8)
 
-Источник Google Drive: [Slider](https://drive.google.com/file/d/1HXJdgSZNQvZSuhK1FHk3e22zg4ErYE1r/view?usp=sharing)
+Источник Google Drive: [Slider](https://drive.google.com/file/d/1bijOt2YcUTUDgX-GsfRwmJCM8_Id_qaZ/view?usp=sharing)
 
 ---
 ## Program features (en)
@@ -42,9 +42,9 @@ This program is designed for local use.
 
 ---
 ## Download
-Mega: [Slider1.exe](https://mega.nz/file/1QQjVSTQ#hgPg8ORwkoIvTIM-Wbg36v41D8RksKsBdr_htnFhlTc)
+Mega: [Slider1.exe](https://mega.nz/file/0dAwFaoQ#K8KedDxh3td0dtL5wYUtjCQl1UC47PTDoGqTPZtY3q8)
 
-Google Drive: [Slider1.exe](https://drive.google.com/file/d/1HXJdgSZNQvZSuhK1FHk3e22zg4ErYE1r/view?usp=sharing)
+Google Drive: [Slider1.exe](https://drive.google.com/file/d/1bijOt2YcUTUDgX-GsfRwmJCM8_Id_qaZ/view?usp=sharing)
 
 ---
 
