@@ -33,6 +33,7 @@ namespace Slider1
             watcher.Changed += OnChanged;                   //проверки на действия
             watcher.Created += OnCreated;
             watcher.Deleted += OnDeleted;
+            watcher.Renamed += OnRenamed;
 
             watcher.Filter = "*.txt";                      //фильтр имени
 
@@ -81,8 +82,12 @@ namespace Slider1
             fileName = Directory.GetFiles(filePath, "*.txt").OrderBy(f => new FileInfo(f).CreationTime).ToArray();
             if (fileName.Length != 0)    //если файл сущесвует
             {
-                groupBox1.Visible = true;                   //показываем инфу
-                ReadFile();
+                 if(label1.Text=="")
+                     groupBox1.Visible = false;                   //показываем инфу
+                 if(label1.Text!="")
+                     groupBox1.Visible = true;
+
+                 ReadFile();
             }
             else                                            //если файл отсутствует
             {
@@ -93,7 +98,10 @@ namespace Slider1
         }
 
         private void ReadFile()                             //чтение файла
-        {
+        {  
+            if(groupBox1.Visible == false)
+                groupBox1.Visible = true;
+
             label1.Text = null;
             string[] line = File.ReadAllLines(fileName.Last());    //читаем строки
             int count = File.ReadAllLines(fileName.Last()).Length; //кол-во строк
@@ -135,6 +143,12 @@ namespace Slider1
             {
                 return;
             }
+            fileName = null;
+            CheckFile();
+        }
+
+        private void OnRenamed(object sender, RenamedEventArgs e)          //проверка удаления
+        {
             fileName = null;
             CheckFile();
         }
