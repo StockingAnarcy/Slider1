@@ -19,11 +19,10 @@ namespace Slider1
         string[] image;                                     //имя  картинки для чтения
 
         List<string> lines = new List<string>();
-        
+        IniFile MyIni = new IniFile(@"./setting.ini");
 
         public Form1()
         {
-            
             this.WindowState = FormWindowState.Maximized;           //Окно на весь экран
 
             var watcher = new FileSystemWatcher(filePath);          //путь файлвотчера
@@ -36,11 +35,28 @@ namespace Slider1
             watcher.Deleted += OnDeleted;
 
             watcher.Filter = "*.txt";                      //фильтр имени
-            
+
             InitializeComponent();
             SetSize();
+            LoadParams();
             CheckFile();
+
+
+            ToolStripMenuItem changeText = new ToolStripMenuItem("Настройка шрифтов");
+            ToolStripMenuItem quitItem = new ToolStripMenuItem("Выход");
+
+            //добавление элементов в меню
+            contextMenuStrip1.Items.AddRange(new[] { changeText, quitItem });
+
+            //ассоциируем контекстное меню с текстовым полем
+            pictureBox1.ContextMenuStrip = contextMenuStrip1;
+            groupBox1.ContextMenuStrip = contextMenuStrip1;
+
+            //устанавливаем обработчики событий для меню
+            changeText.Click += changeText_Click;
+            quitItem.Click += quitItem_Click;
         }
+
 
         private int ImageNumber = 1;
 
@@ -72,7 +88,6 @@ namespace Slider1
             {
                 lines.Clear();                              //чистим строки и текст
                 label1.Text = "";
-
                 groupBox1.Visible = false;                  //скрываем инфу
             }
         }
@@ -88,10 +103,29 @@ namespace Slider1
                 lines.Add(s);
             }
 
+            //lines[1] = new string('-', 5 + 70 + 15 + 16 + 16);
+            //lines[count-4] = new string('-', 5 + 70 + 15 + 16 + 16);
+
             for (int i = 0; i < count; i++)                   //вывод в текст
             {
-                label1.Text += lines[i] + "\n\n";//.Substring(0, lines[i].IndexOf(':'))
-                //+ " " + lines[i].Substring(lines[i].IndexOf(':') + 1) + "\n\n";
+                label1.Text += lines[i] + "\n\n";
+
+                //string[] split = lines[i].Split('|');
+                ////label1.Text += lines[i] + "\n";
+
+                //if (i == 1 || i >= count - 4)
+                //{
+                //    label1.Text += lines[i] + "\n";
+                //}
+                //if (i > count - 4)
+                //{
+
+                //    label1.Text += string.Format("{0,-105}|{1,-16}", split[0], split[1]) + "\n";
+                //}
+                //else
+                //{
+                //    label1.Text += string.Format("{0,5}|{1,-70}|{2,-15}|{3,-16}|{4,-16}|", split[0], split[1], split[2], split[3], split[4]) + "\n";
+                //}
 
             }
         }
@@ -152,7 +186,7 @@ namespace Slider1
                 pictureBox1.Width = Screen.AllScreens[1].Bounds.Width;
                 pictureBox1.Height = Screen.AllScreens[1].Bounds.Height;
             }
-            
+
 
         }
 
@@ -161,5 +195,44 @@ namespace Slider1
             fontDialog1.ShowDialog();
             label1.Font = fontDialog1.Font;
         }
+
+        private void pictureBox1_MouseMove(object sender, EventArgs e)
+        {
+            if (MousePosition.Y <= menuStrip1.Height && !menuStrip1.Visible)
+                menuStrip1.Visible = true;
+            if (MousePosition.Y > menuStrip1.Height && menuStrip1.Visible)
+                menuStrip1.Visible = false;
+        }
+
+        private void changeText_Click(object sender, EventArgs e)
+        {
+            fontDialog1.ShowDialog();
+            label1.Font = fontDialog1.Font;
+            if (fontDialog1.ShowDialog() != DialogResult.Cancel)
+            {
+                MyIni.Write("font", fontDialog1.Font.FontFamily.Name);
+                MyIni.Write("fontSize", fontDialog1.Font.Size.ToString());
+            }
+
+        }
+
+        private void LoadParams()
+        {
+            if (MyIni.KeyExists("fontSize"))
+            {
+                int x = int.Parse(MyIni.Read("fontSize"));
+
+                label1.Font = new Font(MyIni.Read("font"), x);
+            }
+            else
+                label1.Font = new Font("Arial", 10);
+        }
+        //выход из приложения(пожилого)
+        private void quitItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
     }
+ 
 }
