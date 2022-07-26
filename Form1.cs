@@ -103,31 +103,9 @@ namespace Slider1
                 lines.Add(s);
             }
 
-            lines[1] = new string('-', 3 + 74 + 15 + 15 + 15);
-            lines[count - 4] = new string('-', 3 + 74 + 15 + 15 + 15);
-
             for (int i = 0; i < count; i++)                   //вывод в текст
             {
-
-                string[] split;
-                if (i == 1 || i == count - 4)
-                {
-                    label1.Text += lines[i] + "\n";
-                }
-
-                if (i != 1 && i != count - 4)
-                {
-                    split = lines[i].Split('|');
-                    if (i > count - 4)
-                    {
-                        label1.Text += string.Format("{0,-110}|{1,-15}", split[0], split[1]) + "\n";
-                    }
-                    if (i != 1 && i < count - 4)
-                    {
-                        label1.Text += string.Format("{0,3}|{1,74}|{2,15}|{3,15}|{4,15}|", split[0], split[1], split[2], split[3], split[4]) + "\n";
-                    }
-                }
-
+                label1.Text += lines[i] + "\n";
             }
         }
 
