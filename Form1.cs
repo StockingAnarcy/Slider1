@@ -82,11 +82,7 @@ namespace Slider1
             fileName = Directory.GetFiles(filePath, "*.txt").OrderBy(f => new FileInfo(f).CreationTime).ToArray();
             if (fileName.Length != 0)    //если файл сущесвует
             {
-                 if(label1.Text=="")
-                     groupBox1.Visible = false;                   //показываем инфу
-                 if(label1.Text!="")
-                     groupBox1.Visible = true;
-
+           
                  ReadFile();
             }
             else                                            //если файл отсутствует
@@ -98,9 +94,7 @@ namespace Slider1
         }
 
         private void ReadFile()                             //чтение файла
-        {  
-            if(groupBox1.Visible == false)
-                groupBox1.Visible = true;
+        {
 
             label1.Text = null;
             string[] line = File.ReadAllLines(fileName.Last());    //читаем строки
@@ -115,6 +109,12 @@ namespace Slider1
             {
                 label1.Text += lines[i] + "\n";
             }
+
+            if(label1.Text=="")
+                 groupBox1.Visible = false;                   //показываем инфу
+            if(label1.Text!="")
+                 groupBox1.Visible = true;
+ 
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)           //проверка  изменения  
