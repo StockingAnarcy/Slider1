@@ -82,7 +82,6 @@ namespace Slider1
             fileName = Directory.GetFiles(filePath, "*.txt").OrderBy(f => new FileInfo(f).CreationTime).ToArray();
             if (fileName.Length != 0)    //если файл сущесвует
             {
-           
                  ReadFile();
             }
             else                                            //если файл отсутствует
@@ -95,7 +94,6 @@ namespace Slider1
 
         private void ReadFile()                             //чтение файла
         {
-
             label1.Text = null;
             string[] line = File.ReadAllLines(fileName.Last());    //читаем строки
             int count = File.ReadAllLines(fileName.Last()).Length; //кол-во строк
@@ -114,7 +112,6 @@ namespace Slider1
                  groupBox1.Visible = false;                   //показываем инфу
             if(label1.Text!="")
                  groupBox1.Visible = true;
- 
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)           //проверка  изменения  
