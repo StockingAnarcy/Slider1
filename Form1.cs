@@ -26,8 +26,13 @@ namespace Slider1
         public Form1()
         {
             InitializeComponent();
-            ToolStripMenuItem changeText = new ToolStripMenuItem("Настройка шрифтов");        //добавление строчек в меню
-            ToolStripMenuItem colorText = new ToolStripMenuItem("Цвет текста");
+
+            //panel1.HorizontalScroll.Maximum = 0;
+            //panel1.AutoScroll = false;
+            //panel1.VerticalScroll.Visible = false;
+
+            ToolStripMenuItem changeText = new ToolStripMenuItem("Выбор шрифта");        //добавление строчек в меню
+            ToolStripMenuItem colorText = new ToolStripMenuItem("Цвет шрифта");
             ToolStripMenuItem bgcolor = new ToolStripMenuItem("Цвет фона");
             ToolStripMenuItem bgimage_selector = new ToolStripMenuItem("Картинка на фон");
             ToolStripMenuItem bgimage = new ToolStripMenuItem("Выбрать картинку");
@@ -38,7 +43,7 @@ namespace Slider1
             contextMenuStrip1.Items.AddRange(new[] { changeText, colorText, bgcolor, bgimage_selector, quitItem });
  
             pictureBox1.ContextMenuStrip = contextMenuStrip1;                                 //ассоциируем контекстное меню с текстовым полем
-            groupBox1.ContextMenuStrip = contextMenuStrip1;
+            panel1.ContextMenuStrip = contextMenuStrip1;
 
                                                                                               //устанавливаем обработчики событий для меню
             changeText.Click += changeText_Click;                                             //шрифт
@@ -97,7 +102,7 @@ namespace Slider1
             {
                 lines.Clear();                                                                               //чистим строки и текст
                 label1.Text = "";
-                groupBox1.Visible = false;                                                                   //скрываем инфу
+                panel1.Visible = false;                                                                   //скрываем инфу
             }
         }
 
@@ -118,9 +123,9 @@ namespace Slider1
             }
 
             if(label1.Text=="")
-                 groupBox1.Visible = false;                                                                  //показываем инфу
+                 panel1.Visible = false;                                                                  //показываем инфу
             if(label1.Text!="")
-                 groupBox1.Visible = true;
+                 panel1.Visible = true;
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)                          //проверка  изменения  
@@ -181,16 +186,7 @@ namespace Slider1
 
         private void pictureBox1_MouseMove(object sender, EventArgs e)                        //активация верхней менюшки
         {
-            if (MousePosition.Y <= menuStrip1.Height && !menuStrip1.Visible)
-                menuStrip1.Visible = true;
-            if (MousePosition.Y > menuStrip1.Height && menuStrip1.Visible)
-                menuStrip1.Visible = false;
-        }
 
-        private void ToolStripFont_Click(object sender, EventArgs e)                          //выбор шрифта
-        {
-            fontDialog1.ShowDialog();
-            label1.Font = fontDialog1.Font;
         }
 
         private void changeText_Click(object sender, EventArgs e)                             //выбор шрифта(поменшбе)
@@ -210,7 +206,7 @@ namespace Slider1
         private void bgcolor_Click(object sender, EventArgs e)                                //выбор цвета подложки(групбокс)
         {
             colorDialog1.ShowDialog();
-            groupBox1.BackColor = colorDialog1.Color;
+            panel1.BackColor = colorDialog1.Color;
            
         }
 
@@ -230,12 +226,12 @@ namespace Slider1
             openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
             openFileDialog1.ShowDialog();
-            groupBox1.BackgroundImage = ImageOpen(openFileDialog1.FileName);
+            panel1.BackgroundImage = ImageOpen(openFileDialog1.FileName);
         }
 
         private void del_bgmimage_Click(object sender, EventArgs e)                           //удаляем пожилую картинку подложки(групбокс)
         {
-            groupBox1.BackgroundImage = null;
+            panel1.BackgroundImage = null;
             MyIni.DeleteKey("image");
         }
 
@@ -264,20 +260,20 @@ namespace Slider1
 
             if (MyIni.KeyExists("bgmColor"))                                                                  //загружаем цвет подложки(групбокса) из .ini
             {
-                groupBox1.BackColor = ColorTranslator.FromHtml(MyIni.Read("bgmColor"));
+                panel1.BackColor = ColorTranslator.FromHtml(MyIni.Read("bgmColor"));
             }
             else
             {
-                groupBox1.BackColor = Color.White;
+                panel1.BackColor = Color.White;
             }
             
             if (MyIni.KeyExists("image")&&MyIni.Read("image")!= "openFileDialog1")                            //загружаем картинку подложки(групбокса) из .ini
             {
-                groupBox1.BackgroundImage = ImageOpen(MyIni.Read("image"));
+                panel1.BackgroundImage = ImageOpen(MyIni.Read("image"));
             }
             else
             {
-                groupBox1.BackgroundImage = null;
+                panel1.BackgroundImage = null;
             }
         }
         
@@ -286,9 +282,9 @@ namespace Slider1
             MyIni.Write("font", label1.Font.FontFamily.Name);
             MyIni.Write("fontSize", label1.Font.Size.ToString());
             MyIni.Write("textColor", ColorTranslator.ToHtml(label1.ForeColor).ToString());
-            MyIni.Write("bgmColor", ColorTranslator.ToHtml(groupBox1.BackColor).ToString());
+            MyIni.Write("bgmColor", ColorTranslator.ToHtml(panel1.BackColor).ToString());
             MyIni.Write("image", openFileDialog1.FileName);
-            File.SetAttributes(@"./setting.ini", FileAttributes.Hidden);
+            File.SetAttributes(@"./setting.ini", FileAttributes.ReadOnly);
 
             this.Close();
         }   
