@@ -20,48 +20,57 @@ namespace Slider1
 
         List<string> lines = new List<string>();
         IniFile MyIni = new IniFile(@"./setting.ini");
+        
+        
 
         public Form1()
         {
-            this.WindowState = FormWindowState.Maximized;           //Окно на весь экран
+            InitializeComponent();
+            ToolStripMenuItem changeText = new ToolStripMenuItem("Настройка шрифтов");        //добавление строчек в меню
+            ToolStripMenuItem colorText = new ToolStripMenuItem("Цвет текста");
+            ToolStripMenuItem bgcolor = new ToolStripMenuItem("Цвет фона");
+            ToolStripMenuItem bgimage_selector = new ToolStripMenuItem("Картинка на фон");
+            ToolStripMenuItem bgimage = new ToolStripMenuItem("Выбрать картинку");
+            ToolStripMenuItem del_bgimage = new ToolStripMenuItem("Удалить картинку");
+            ToolStripMenuItem quitItem = new ToolStripMenuItem("Выход");
+                                                                                         
+            bgimage_selector.DropDownItems.AddRange(new[] { bgimage, del_bgimage });          //добавление элементов в меню
+            contextMenuStrip1.Items.AddRange(new[] { changeText, colorText, bgcolor, bgimage_selector, quitItem });
+ 
+            pictureBox1.ContextMenuStrip = contextMenuStrip1;                                 //ассоциируем контекстное меню с текстовым полем
+            groupBox1.ContextMenuStrip = contextMenuStrip1;
 
-            var watcher = new FileSystemWatcher(filePath);          //путь файлвотчера
-            watcher.EnableRaisingEvents = true;                     //ивенты файлвотчера
-            watcher.SynchronizingObject = this;                     //синхронизация с обьектом
-            watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName; //фильтры оповещений
+                                                                                              //устанавливаем обработчики событий для меню
+            changeText.Click += changeText_Click;                                             //шрифт
+            colorText.Click += colorText_Click;                                               //цвет текста
+            bgcolor.Click += bgcolor_Click;                                                   //цвет пикчербокса
+            bgimage.Click += bgimage_Click;                                                   //каринка пикчербокса
+            del_bgimage.Click += del_bgmimage_Click;                                          //удаление картинки пикчербокса
+            quitItem.Click += quitItem_Click;                                                 //выход
 
-            watcher.Changed += OnChanged;                   //проверки на действия
+            this.WindowState = FormWindowState.Maximized;                                     //Окно на весь экран
+
+            var watcher = new FileSystemWatcher(filePath);                                    //путь файлвотчера
+            watcher.EnableRaisingEvents = true;                                               //ивенты файлвотчера
+            watcher.SynchronizingObject = this;                                               //синхронизация с обьектом
+            watcher.NotifyFilter = NotifyFilters.LastWrite |                                  //фильтры оповещений
+                                   NotifyFilters.FileName; 
+
+            watcher.Changed += OnChanged;                                                     //проверки на действия
             watcher.Created += OnCreated;
             watcher.Deleted += OnDeleted;
             watcher.Renamed += OnRenamed;
 
-            watcher.Filter = "*.txt";                      //фильтр имени
+            watcher.Filter = "*.txt";                                                         //фильтр имени
 
-            InitializeComponent();
             SetSize();
             LoadParams();
             CheckFile();
-
-
-            ToolStripMenuItem changeText = new ToolStripMenuItem("Настройка шрифтов");
-            ToolStripMenuItem quitItem = new ToolStripMenuItem("Выход");
-
-            //добавление элементов в меню
-            contextMenuStrip1.Items.AddRange(new[] { changeText, quitItem });
-
-            //ассоциируем контекстное меню с текстовым полем
-            pictureBox1.ContextMenuStrip = contextMenuStrip1;
-            groupBox1.ContextMenuStrip = contextMenuStrip1;
-
-            //устанавливаем обработчики событий для меню
-            changeText.Click += changeText_Click;
-            quitItem.Click += quitItem_Click;
         }
-
 
         private int ImageNumber = 1;
 
-        private void LoadNextImages()                       //грузим фотки по таймеру
+        private void LoadNextImages()                                                         //грузим фотки по таймеру
         {
             image = Directory.GetFiles(imagePath, "*.jpg");
 
@@ -77,44 +86,44 @@ namespace Slider1
             }
         }
 
-        private void CheckFile()                            //проверка файла
+        private void CheckFile()                                                              //провер_очка файла
         {
             fileName = Directory.GetFiles(filePath, "*.txt").OrderBy(f => new FileInfo(f).CreationTime).ToArray();
-            if (fileName.Length != 0)    //если файл сущесвует
+            if (fileName.Length != 0)                                                                        //если файл сущесвует
             {
                  ReadFile();
             }
-            else                                            //если файл отсутствует
+            else                                                                                             //если файл отсутствует
             {
-                lines.Clear();                              //чистим строки и текст
+                lines.Clear();                                                                               //чистим строки и текст
                 label1.Text = "";
-                groupBox1.Visible = false;                  //скрываем инфу
+                groupBox1.Visible = false;                                                                   //скрываем инфу
             }
         }
 
-        private void ReadFile()                             //чтение файла
+        private void ReadFile()                                                               //чтение файла
         {
             label1.Text = null;
-            string[] line = File.ReadAllLines(fileName.Last());    //читаем строки
-            int count = File.ReadAllLines(fileName.Last()).Length; //кол-во строк
+            string[] line = File.ReadAllLines(fileName.Last());                                              //читаем строки
+            int count = File.ReadAllLines(fileName.Last()).Length;                                           //кол-во строк
 
-            foreach (string s in line)                      //строки в список
+            foreach (string s in line)                                                                       //строки в список
             {
                 lines.Add(s);
             }
 
-            for (int i = 0; i < count; i++)                   //вывод в текст
+            for (int i = 0; i < count; i++)                                                                  //вывод в текст
             {
                 label1.Text += lines[i] + "\n";
             }
 
             if(label1.Text=="")
-                 groupBox1.Visible = false;                   //показываем инфу
+                 groupBox1.Visible = false;                                                                  //показываем инфу
             if(label1.Text!="")
                  groupBox1.Visible = true;
         }
 
-        private void OnChanged(object sender, FileSystemEventArgs e)           //проверка  изменения  
+        private void OnChanged(object sender, FileSystemEventArgs e)                          //проверка  изменения  
         {
             if (e.ChangeType != WatcherChangeTypes.Changed)
             {
@@ -124,7 +133,7 @@ namespace Slider1
             ReadFile();
         }
 
-        private void OnCreated(object sender, FileSystemEventArgs e)          //проверка создания
+        private void OnCreated(object sender, FileSystemEventArgs e)                          //проверка создания
         {
             if (e.ChangeType != WatcherChangeTypes.Created)
             {
@@ -134,7 +143,7 @@ namespace Slider1
 
         }
 
-        private void OnDeleted(object sender, FileSystemEventArgs e)          //проверка удаления
+        private void OnDeleted(object sender, FileSystemEventArgs e)                          //проверка удаления
         {
             if (e.ChangeType != WatcherChangeTypes.Deleted)
             {
@@ -144,26 +153,18 @@ namespace Slider1
             CheckFile();
         }
 
-        private void OnRenamed(object sender, RenamedEventArgs e)          //проверка удаления
+        private void OnRenamed(object sender, RenamedEventArgs e)                             //проверка удаления
         {
             fileName = null;
             CheckFile();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)                                  //если таймер кончился
         {
             LoadNextImages();
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void SetSize()
+        private void SetSize()                                                                //подгон под размер экрана
         {
             Screen[] screens = Screen.AllScreens;
             if (screens.Length <= 1)
@@ -178,13 +179,7 @@ namespace Slider1
             }
         }
 
-        private void настройкаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            fontDialog1.ShowDialog();
-            label1.Font = fontDialog1.Font;
-        }
-
-        private void pictureBox1_MouseMove(object sender, EventArgs e)
+        private void pictureBox1_MouseMove(object sender, EventArgs e)                        //активация верхней менюшки
         {
             if (MousePosition.Y <= menuStrip1.Height && !menuStrip1.Visible)
                 menuStrip1.Visible = true;
@@ -192,32 +187,111 @@ namespace Slider1
                 menuStrip1.Visible = false;
         }
 
-        private void changeText_Click(object sender, EventArgs e)
+        private void ToolStripFont_Click(object sender, EventArgs e)                          //выбор шрифта
         {
             fontDialog1.ShowDialog();
             label1.Font = fontDialog1.Font;
-            if (DialogResult != DialogResult.Cancel)
-            {
-                MyIni.Write("font", fontDialog1.Font.FontFamily.Name);
-                MyIni.Write("fontSize", fontDialog1.Font.Size.ToString());
-            }
         }
-        private void LoadParams()
+
+        private void changeText_Click(object sender, EventArgs e)                             //выбор шрифта(поменшбе)
         {
-            if (MyIni.KeyExists("fontSize"))
+            fontDialog1.ShowDialog();
+            label1.Font = fontDialog1.Font;
+            
+        }   
+       
+        private void colorText_Click(object sender, EventArgs e)                              //выбор цвета текста
+        {
+            colorDialog2.ShowDialog();
+            label1.ForeColor = colorDialog2.Color;
+          
+        }
+
+        private void bgcolor_Click(object sender, EventArgs e)                                //выбор цвета подложки(групбокс)
+        {
+            colorDialog1.ShowDialog();
+            groupBox1.BackColor = colorDialog1.Color;
+           
+        }
+
+        public Image ImageOpen(string filename)                                               //открытие картинки
+        {
+            if (File.Exists(filename))
+            {
+                return Image.FromFile(filename);
+            }
+            else return null;
+            
+        }
+        private void bgimage_Click(object sender, EventArgs e)                                //выбор пожилой картинки
+        {
+            openFileDialog1.InitialDirectory = filePath;
+            openFileDialog1.Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.ShowDialog();
+            groupBox1.BackgroundImage = ImageOpen(openFileDialog1.FileName);
+        }
+
+        private void del_bgmimage_Click(object sender, EventArgs e)                           //удаляем пожилую картинку подложки(групбокс)
+        {
+            groupBox1.BackgroundImage = null;
+            MyIni.DeleteKey("image");
+        }
+
+        private void LoadParams()                                                             //загрузка параметров(бом бом)
+        {
+            if (MyIni.KeyExists("font"))                                                                      //загружаем шрифт из .ini
             {
                 float x = float.Parse(MyIni.Read("fontSize"));
 
                 label1.Font = new Font(MyIni.Read("font"), x);
+                
             }
             else
+            {
                 label1.Font = new Font("Consolas", 12);
+            }
+
+            if (MyIni.KeyExists("textColor"))                                                                 //загружаем цвет шрифта из .ini
+            {
+                label1.ForeColor = ColorTranslator.FromHtml(MyIni.Read("textColor"));
+            }
+            else
+            {
+                label1.ForeColor = Color.Black;
+            }
+
+            if (MyIni.KeyExists("bgmColor"))                                                                  //загружаем цвет подложки(групбокса) из .ini
+            {
+                groupBox1.BackColor = ColorTranslator.FromHtml(MyIni.Read("bgmColor"));
+            }
+            else
+            {
+                groupBox1.BackColor = Color.White;
+            }
+            
+            if (MyIni.KeyExists("image")&&MyIni.Read("image")!= "openFileDialog1")                            //загружаем картинку подложки(групбокса) из .ini
+            {
+                groupBox1.BackgroundImage = ImageOpen(MyIni.Read("image"));
+            }
+            else
+            {
+                groupBox1.BackgroundImage = null;
+            }
         }
-        //выход из приложения(пожилого)
-        private void quitItem_Click(object sender, EventArgs e)
+        
+        private void quitItem_Click(object sender, EventArgs e)                               //выход из приложения(пожилого)
         {
+            MyIni.Write("font", label1.Font.FontFamily.Name);
+            MyIni.Write("fontSize", label1.Font.Size.ToString());
+            MyIni.Write("textColor", ColorTranslator.ToHtml(label1.ForeColor).ToString());
+            MyIni.Write("bgmColor", ColorTranslator.ToHtml(groupBox1.BackColor).ToString());
+            MyIni.Write("image", openFileDialog1.FileName);
+            File.SetAttributes(@"./setting.ini", FileAttributes.Hidden);
+
             this.Close();
-        }
+        }   
     }
  
 }
