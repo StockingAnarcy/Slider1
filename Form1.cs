@@ -58,8 +58,8 @@ namespace Slider1
             var watcher = new FileSystemWatcher(filePath);                                    //путь файлвотчера
             watcher.EnableRaisingEvents = true;                                               //ивенты файлвотчера
             watcher.SynchronizingObject = this;                                               //синхронизация с обьектом
-            watcher.NotifyFilter = NotifyFilters.LastWrite |                                  //фильтры оповещений
-                                   NotifyFilters.FileName; 
+            watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;          //фильтры оповещений
+
 
             watcher.Changed += OnChanged;                                                     //проверки на действия
             watcher.Created += OnCreated;
@@ -184,11 +184,6 @@ namespace Slider1
             }
         }
 
-        private void pictureBox1_MouseMove(object sender, EventArgs e)                        //активация верхней менюшки
-        {
-
-        }
-
         private void changeText_Click(object sender, EventArgs e)                             //выбор шрифта(поменшбе)
         {
             fontDialog1.ShowDialog();
@@ -214,7 +209,9 @@ namespace Slider1
         {
             if (File.Exists(filename))
             {
+                MyIni.Write("image", filename);
                 return Image.FromFile(filename);
+               
             }
             else return null;
             
@@ -283,8 +280,7 @@ namespace Slider1
             MyIni.Write("fontSize", label1.Font.Size.ToString());
             MyIni.Write("textColor", ColorTranslator.ToHtml(label1.ForeColor).ToString());
             MyIni.Write("bgmColor", ColorTranslator.ToHtml(panel1.BackColor).ToString());
-            MyIni.Write("image", openFileDialog1.FileName);
-            File.SetAttributes(@"./setting.ini", FileAttributes.ReadOnly);
+            File.SetAttributes(@"./setting.ini", FileAttributes.Hidden);
 
             this.Close();
         }   
