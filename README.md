@@ -26,7 +26,7 @@
 ## Main features of the program (en)
 This program is designed for local use.
 ### Features of the application:
-- place .jpg images from the Images folder, located next to the .exe file
+- pull up .jpg images from the Images folder, located next to the .exe file
 - read and recognize .txt file next to .exe file 
 - automatic display of loaded images and their continuous change (one after another)
 - displaying data from .txt file (if .txt file is present) and also closing display window if it is absent.
