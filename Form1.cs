@@ -20,7 +20,8 @@ namespace Slider1
 
         List<string> lines = new List<string>();
         IniFile MyIni = new IniFile(@"./setting.ini");
-        
+
+        int pos;
         
 
         public Form1()
@@ -30,8 +31,21 @@ namespace Slider1
             //panel1.HorizontalScroll.Maximum = 0;
             //panel1.AutoScroll = false;
             //panel1.VerticalScroll.Visible = false;
+            ToolStripMenuItem size_selector = new ToolStripMenuItem("Положение окна вывода");    //добавление строчек в меню
+            
+            ToolStripMenuItem up_left = new ToolStripMenuItem("Слева вверху");
+            ToolStripMenuItem up_middle = new ToolStripMenuItem("Сверху посередине");
+            ToolStripMenuItem up_right = new ToolStripMenuItem("Справа вверху");
 
-            ToolStripMenuItem changeText = new ToolStripMenuItem("Выбор шрифта");        //добавление строчек в меню
+            ToolStripMenuItem middle_left = new ToolStripMenuItem("По центру справа");
+            ToolStripMenuItem middle = new ToolStripMenuItem("По центру");
+            ToolStripMenuItem middle_right = new ToolStripMenuItem("По центру слева");
+
+            ToolStripMenuItem down_left = new ToolStripMenuItem("Справа внизу");
+            ToolStripMenuItem down_middle = new ToolStripMenuItem("Внизу посередине");
+            ToolStripMenuItem down_right = new ToolStripMenuItem("Слува внизу");
+            
+            ToolStripMenuItem changeText = new ToolStripMenuItem("Выбор шрифта");      
             ToolStripMenuItem colorText = new ToolStripMenuItem("Цвет шрифта");
             ToolStripMenuItem bgcolor = new ToolStripMenuItem("Цвет фона");
             ToolStripMenuItem bgimage_selector = new ToolStripMenuItem("Картинка на фон");
@@ -40,7 +54,8 @@ namespace Slider1
             ToolStripMenuItem quitItem = new ToolStripMenuItem("Выход");
                                                                                          
             bgimage_selector.DropDownItems.AddRange(new[] { bgimage, del_bgimage });          //добавление элементов в меню
-            contextMenuStrip1.Items.AddRange(new[] { changeText, colorText, bgcolor, bgimage_selector, quitItem });
+            size_selector.DropDownItems.AddRange(new[] { up_left, up_middle, up_right, middle_left, middle, middle_right, down_left, down_middle, down_right });
+            contextMenuStrip1.Items.AddRange(new[] { changeText, colorText, size_selector, bgcolor, bgimage_selector, quitItem });
  
             pictureBox1.ContextMenuStrip = contextMenuStrip1;                                 //ассоциируем контекстное меню с текстовым полем
             panel1.ContextMenuStrip = contextMenuStrip1;
@@ -48,6 +63,20 @@ namespace Slider1
                                                                                               //устанавливаем обработчики событий для меню
             changeText.Click += changeText_Click;                                             //шрифт
             colorText.Click += colorText_Click;                                               //цвет текста
+
+            up_left.Click += upleft_Click;
+            up_middle.Click += upmddle_Click;
+            up_right.Click += upright_Click;
+
+            middle_left.Click += middleleft_Click;
+            middle.Click += middle_Click;
+            middle_right.Click += middleright_Click;
+
+            down_left.Click += downleft_Click;
+            down_middle.Click += downmiddle_Click;
+            down_right.Click += downright_Click;
+
+
             bgcolor.Click += bgcolor_Click;                                                   //цвет пикчербокса
             bgimage.Click += bgimage_Click;                                                   //каринка пикчербокса
             del_bgimage.Click += del_bgmimage_Click;                                          //удаление картинки пикчербокса
@@ -126,6 +155,7 @@ namespace Slider1
                  panel1.Visible = false;                                                                  //показываем инфу
             if(label1.Text!="")
                  panel1.Visible = true;
+
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)                          //проверка  изменения  
@@ -136,6 +166,7 @@ namespace Slider1
             }
             lines.Clear();
             ReadFile();
+            
         }
 
         private void OnCreated(object sender, FileSystemEventArgs e)                          //проверка создания
@@ -145,6 +176,7 @@ namespace Slider1
                 return;
             }
             CheckFile();
+
 
         }
 
@@ -168,7 +200,12 @@ namespace Slider1
         {
             LoadNextImages();
         }
-
+      
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            SetPos();
+        }
+      
         private void SetSize()                                                                //подгон под размер экрана
         {
             Screen[] screens = Screen.AllScreens;
@@ -183,6 +220,98 @@ namespace Slider1
                 pictureBox1.Height = Screen.AllScreens[1].Bounds.Height;
             }
         }
+
+        private void SetPos()
+        {
+            if (pos == 1)
+            {
+                panel1.Left = 0;
+                panel1.Top = 0;
+            }
+            if (pos == 2)
+            {
+                panel1.Left = (pictureBox1.Bounds.Width - panel1.Width)/2 ;
+                panel1.Top = 0;
+            }
+            if (pos == 3)
+            {
+                panel1.Left = pictureBox1.Bounds.Width - panel1.Width;
+                panel1.Top = 0;
+            }
+        //
+            if (pos == 4)
+            {
+                panel1.Left = 0;
+                panel1.Top = (pictureBox1.Bounds.Height - panel1.Height)/2;
+            }
+            if (pos == 5)
+            {
+                panel1.Left = (pictureBox1.Bounds.Width - panel1.Width) / 2;
+                panel1.Top = (pictureBox1.Bounds.Height - panel1.Height) / 2;
+            }
+            if (pos == 6)
+            {
+                panel1.Left = pictureBox1.Bounds.Width - panel1.Width;
+                panel1.Top = (pictureBox1.Bounds.Height - panel1.Height) / 2;
+            }
+          //
+            if (pos == 7)
+            {
+                panel1.Left = 0;
+                panel1.Top = pictureBox1.Bounds.Height - panel1.Height;
+            }
+            if (pos == 8)
+            {
+                panel1.Left = (pictureBox1.Bounds.Width - panel1.Width) / 2; ;
+                panel1.Top = pictureBox1.Bounds.Height - panel1.Height;
+            }
+            if (pos == 9)
+            {
+                panel1.Left = pictureBox1.Bounds.Width - panel1.Width;
+                panel1.Top = pictureBox1.Bounds.Height - panel1.Height;
+            }
+        }
+       
+        //положение
+        private void upleft_Click(object sender, EventArgs e)
+        {
+            pos = 1;
+        }
+        private void upmddle_Click(object sender, EventArgs e)
+        {
+            pos = 2; 
+        }
+        private void upright_Click(object sender, EventArgs e)
+        {
+            pos = 3;
+        }
+
+        private void middleright_Click(object sender, EventArgs e)
+        {
+            pos = 4;
+        }
+        private void middle_Click(object sender, EventArgs e)
+        {
+            pos = 5;
+        }
+        private void middleleft_Click(object sender, EventArgs e)
+        {
+            pos = 6;
+        }
+
+        private void downleft_Click(object sender, EventArgs e)
+        {
+            pos = 7;
+        }
+        private void downmiddle_Click(object sender, EventArgs e)
+        {
+            pos = 8;
+        }
+        private void downright_Click(object sender, EventArgs e)
+        {
+            pos = 9;
+        }
+
 
         private void changeText_Click(object sender, EventArgs e)                             //выбор шрифта(поменшбе)
         {
@@ -234,6 +363,12 @@ namespace Slider1
 
         private void LoadParams()                                                             //загрузка параметров(бом бом)
         {
+            if (MyIni.KeyExists("pos"))                                                                      //загружаем шрифт из .ini
+            {
+                pos = int.Parse(MyIni.Read("pos"));
+            }
+            else pos = 5;
+
             if (MyIni.KeyExists("font"))                                                                      //загружаем шрифт из .ini
             {
                 float x = float.Parse(MyIni.Read("fontSize"));
@@ -278,6 +413,9 @@ namespace Slider1
         {
             MyIni.Write("font", label1.Font.FontFamily.Name);
             MyIni.Write("fontSize", label1.Font.Size.ToString());
+
+            MyIni.Write("pos", pos.ToString());
+
             MyIni.Write("textColor", ColorTranslator.ToHtml(label1.ForeColor).ToString());
             MyIni.Write("bgmColor", ColorTranslator.ToHtml(panel1.BackColor).ToString());
             File.SetAttributes(@"./setting.ini", FileAttributes.Hidden);
