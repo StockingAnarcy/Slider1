@@ -33,17 +33,17 @@ namespace Slider1
             //panel1.VerticalScroll.Visible = false;
             ToolStripMenuItem size_selector = new ToolStripMenuItem("Положение окна вывода");    //добавление строчек в меню
             
-            ToolStripMenuItem up_left = new ToolStripMenuItem("Слева вверху");
-            ToolStripMenuItem up_middle = new ToolStripMenuItem("Сверху посередине");
-            ToolStripMenuItem up_right = new ToolStripMenuItem("Справа вверху");
+            ToolStripMenuItem up_left = new ToolStripMenuItem("Сверху слева");
+            ToolStripMenuItem up_middle = new ToolStripMenuItem("Сверху по центру");
+            ToolStripMenuItem up_right = new ToolStripMenuItem("Сверху справа");
 
             ToolStripMenuItem middle_left = new ToolStripMenuItem("По центру справа");
             ToolStripMenuItem middle = new ToolStripMenuItem("По центру");
             ToolStripMenuItem middle_right = new ToolStripMenuItem("По центру слева");
 
-            ToolStripMenuItem down_left = new ToolStripMenuItem("Справа внизу");
-            ToolStripMenuItem down_middle = new ToolStripMenuItem("Внизу посередине");
-            ToolStripMenuItem down_right = new ToolStripMenuItem("Слува внизу");
+            ToolStripMenuItem down_left = new ToolStripMenuItem("Снизу слева");
+            ToolStripMenuItem down_middle = new ToolStripMenuItem("Снизу по центру");
+            ToolStripMenuItem down_right = new ToolStripMenuItem("Снизу справа");
             
             ToolStripMenuItem changeText = new ToolStripMenuItem("Выбор шрифта");      
             ToolStripMenuItem colorText = new ToolStripMenuItem("Цвет шрифта");
@@ -227,48 +227,57 @@ namespace Slider1
             {
                 panel1.Left = 0;
                 panel1.Top = 0;
+                panel1.Anchor = AnchorStyles.Left| AnchorStyles.Top;
             }
             if (pos == 2)
             {
                 panel1.Left = (pictureBox1.Bounds.Width - panel1.Width)/2 ;
                 panel1.Top = 0;
+                panel1.Anchor = AnchorStyles.Top;
             }
             if (pos == 3)
             {
                 panel1.Left = pictureBox1.Bounds.Width - panel1.Width;
                 panel1.Top = 0;
+                panel1.Anchor = AnchorStyles.Right | AnchorStyles.Top;
             }
         //
             if (pos == 4)
             {
                 panel1.Left = 0;
                 panel1.Top = (pictureBox1.Bounds.Height - panel1.Height)/2;
+                panel1.Anchor = AnchorStyles.Left;
             }
             if (pos == 5)
             {
                 panel1.Left = (pictureBox1.Bounds.Width - panel1.Width) / 2;
                 panel1.Top = (pictureBox1.Bounds.Height - panel1.Height) / 2;
+                
             }
             if (pos == 6)
             {
                 panel1.Left = pictureBox1.Bounds.Width - panel1.Width;
                 panel1.Top = (pictureBox1.Bounds.Height - panel1.Height) / 2;
+                panel1.Anchor = AnchorStyles.Right;
             }
           //
             if (pos == 7)
             {
                 panel1.Left = 0;
                 panel1.Top = pictureBox1.Bounds.Height - panel1.Height;
+                panel1.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
             }
             if (pos == 8)
             {
                 panel1.Left = (pictureBox1.Bounds.Width - panel1.Width) / 2; ;
                 panel1.Top = pictureBox1.Bounds.Height - panel1.Height;
+                panel1.Anchor = AnchorStyles.Bottom;
             }
             if (pos == 9)
             {
                 panel1.Left = pictureBox1.Bounds.Width - panel1.Width;
                 panel1.Top = pictureBox1.Bounds.Height - panel1.Height;
+                panel1.Anchor = AnchorStyles.Right | AnchorStyles.Bottom;
             }
         }
        
