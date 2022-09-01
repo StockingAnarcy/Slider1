@@ -13,7 +13,7 @@
 1. Разместить .exe файл в любом удобном для вас месте.
 2. Затем рядом с .exe файлом разместить папку Images, где будут лежать ваши изображения в формате .jpg.
 3. На этом этапе уже можно запустить приложение и оценить его работу. Ведь при появлении .txt файла с данными, оно автоматически будет выводить его на экран.
-4. Можно выбрать размер шрифта и его стиль, цвет текста, изображение или цвет для заднего фона с помощью контекстного меню(пкм по любой области экрана).
+4. Можно выбрать размер шрифта и его стиль, цвет текста, изображение или цвет для заднего фона с помощью контекстного меню. Также можно выбрать положение окна вывода (пкм по любой области экрана).
 5. Создавать/удалять/перезаписывать .txt файл для вывода его на экран.
 6. Наслаждаться работой приложения.
 ---
@@ -37,7 +37,7 @@ The use of this program is as follows:
 1. Place .exe file in any place you want.
 2. Then next to the .exe file, place the Images folder, where your images in .jpg format will be located.
 3. At this stage you can start the application and evaluate its work. When you get a .txt file, it will automatically put it on the screen.
-4. You can choose the font size and style, text color, image, or background color using the context menu (rmb click on any area of the screen).
+4. You can select the font size and style, text color, image, or background color using the context menu. You can also choose the position of the output window (rmb click on any area of the screen).
 5. Create/delete/overwrite .txt file to display it on the screen.
 6. Enjoy the work of the application.
 
